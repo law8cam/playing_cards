@@ -2,7 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:playing_cards/playing_cards.dart';
 
 void main() {
-  runApp(MaterialApp(home: CardHomeView()));
+  runApp(MaterialApp(
+
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        accentColor: Colors.orange,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      darkTheme: ThemeData.dark().copyWith(
+        // primarySwatch: Colors.orange,
+        brightness: Brightness.dark,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        checkboxTheme: CheckboxThemeData(fillColor: MaterialStateColor.resolveWith(
+              (states) {
+            if (states.contains(MaterialState.selected)) {
+              return Colors.blue; // the color when checkbox is selected;
+            }
+            return Colors.white; //the color when checkbox is unselected;
+          },
+        )),
+      ),
+      themeMode: ThemeMode.dark,
+
+      home: CardHomeView()));
 }
 
 class CardHomeView extends StatefulWidget {
@@ -28,7 +51,8 @@ class _CardHomeViewState extends State<CardHomeView> {
                 style: TextStyle(fontSize: 500),
               ),
             ),
-        style: TextStyle(color: Colors.grey[800])),
+        style: TextStyle(color: Colors.black)
+    ),
     Suit.hearts: SuitStyle(
         builder: (context) => FittedBox(
               fit: BoxFit.fitHeight,
@@ -55,7 +79,8 @@ class _CardHomeViewState extends State<CardHomeView> {
                 style: TextStyle(fontSize: 500),
               ),
             ),
-        style: TextStyle(color: Colors.grey[800])),
+        style: TextStyle(color: Colors.black)
+    ),
   });
 
   @override
@@ -64,7 +89,10 @@ class _CardHomeViewState extends State<CardHomeView> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          PlayingCardView(card: PlayingCard(suit, value), style: myCardStyles),
+          Container(
+              height: 400,
+
+              child: PlayingCardView(card: PlayingCard(suit, value), style: myCardStyles, cardColor: Colors.blue,)),
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             DropdownButton<Suit>(
                 value: suit,

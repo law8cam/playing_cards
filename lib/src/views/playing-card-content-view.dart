@@ -43,6 +43,7 @@ class PlayingCardContentView extends StatelessWidget {
               child: Container(
                   width: innerWidth,
                   height: innerHeight,
+                  // color: Colors.red,
                   child: center!(context))),
           Positioned(
               left: 0,

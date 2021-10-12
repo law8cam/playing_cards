@@ -32,16 +32,11 @@ class PlayingCardView extends StatelessWidget {
   /// These fields are passed to the underlying material card.
   final double? elevation;
 
+  final Color cardColor;
+
   /// Card is required. Style can be provided to override as little or as much
   /// of the cards look as you so choose.
-  const PlayingCardView(
-      {Key? key,
-      required this.card,
-      this.style,
-      this.showBack = false,
-      this.shape,
-      this.elevation})
-      : super(key: key);
+  const PlayingCardView({Key? key, required this.card, this.style, this.showBack = false, this.shape, this.elevation, this.cardColor = Colors.white}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,17 +49,18 @@ class PlayingCardView extends StatelessWidget {
         valueText: card.value.shortName,
         valueTextStyle: reconciled.suitStyles![card.suit]!.style,
         suitBuilder: reconciled.suitStyles![card.suit]!.builder,
-        center:
-            reconciled.suitStyles![card.suit]!.cardContentBuilders![card.value],
+        center: reconciled.suitStyles![card.suit]!.cardContentBuilders![card.value],
       );
     }
 
     return AspectRatio(
         aspectRatio: playingCardAspectRatio,
         child: Card(
-            shape: shape,
-            elevation: elevation,
-            clipBehavior: Clip.antiAlias,
-            child: cardBody));
+          color: cardColor,
+          shape: shape,
+          elevation: elevation,
+          clipBehavior: Clip.antiAlias,
+          child: cardBody,
+        ));
   }
 }
